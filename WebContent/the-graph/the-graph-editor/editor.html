@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workflow Graph Editor</title>
+    <meta charset="utf-8">
+
+    <!-- Bower Libraries -->
+    <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="../bower_components/react/react-with-addons.js"></script>
+    <script src="../bower_components/react/react-dom.js"></script>
+    <script src="../bower_components/klayjs-noflo/klay-noflo.js"></script>
+    <script src="../bower_components/hammerjs/hammer.min.js"></script>
+    <script src="../bower_components/ease-djdeath/index.js"></script>
+    <script src="../bower_components/react.animate-djdeath/react.animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    
+    <script src="../component-library/library.js"></script>
+    <!-- Browserify Libraries -->
+    <script src="../build/noflo.js"></script>
+
+    <!-- Custom elements -->
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="./the-graph-editor.html">
+    <link rel="import" href="../the-graph-nav/the-graph-nav.html">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+      @font-face {
+        /* we want the svg version */
+        font-family: 'FontAwesomeSVG';
+        src: url('../bower_components/font-awesome/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg'),
+          url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),
+          url('../bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'),
+          url('../bower_components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        background-color: hsl(189, 47%, 6%);
+        font-family: "SourceCodePro",Helvetica,Arial,sans-serif;
+        overflow: hidden;
+      }
+      #editor {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      #nav {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+      }
+      #tools {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 5%;
+        width: 100%;
+      }
+      .btn{
+        font-family: "SourceCodePro", "Source Code Pro", Helvetica, Arial, sans-serif;
+        font-size: 10pt;
+        margin: 5px;
+        background: #3FA7DC;
+        color: #FFF;
+        border: 0;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <the-graph-editor id="editor"
+      width="800" height="600"
+      grid="72"
+      snap="36"
+      theme="dark">
+    </the-graph-editor>
+   
+    <div id="modal" class="popupContainer" style="display:none;">
+      <header class="popupHeader">
+        <span class="header_title"></span>
+        <span class="modal_close"><i class="fa fa-times"></i></span>
+      </header>
+      <section class="popupBody">     
+        <!--Spark Form--> 
+        <div class="sparkForm">
+          <form>
+            <input type="hidden" id="sparkId"/>
+            <label>App Name</label>
+            <input type="text" id="sparkAppName" placeholder="Spark App Name"/>
+
+            <label>Jar File</label>
+            <input type="text" id="sparkJar" placeholder="Packed Jar File Name"/>
+            
+            <label>Main Class</label>
+            <input type="text" id="sparkMain" placeholder="Main Class Path"/>
+            <div class="parameter">
+              <label>Parameter</label>
+              <a href="#" onclick="addSparkParameter();"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+              <div id="sparkParameters"></div>
+            </div>
+            <br />
+            <div class="action_btns">
+              <div id="sparkSave" class="one_half last"><a href="#" class="btn btn_red">Save</a></div>
+            </div>
+          </form>
+        </div>
+        <!--File Form-->
+        <div class="fileForm">
+          <form>
+            <input type="hidden" id="fileId" />
+            <label>File Name</label>
+            <input type="text" id="fileName" placeholder="File Name"/>          
+            <br />
+            <div class="action_btns">
+              <div id="fileSave" class="one_half last"><a href="#" class="btn btn_red">Save</a></div>
+            </div>
+          </form>
+        </div>
+        <!--MR Form--> 
+        <div class="mrForm">
+          <form>
+            <input type="hidden" id="mrId"/>
+            <label>App Name</label>
+            <input type="text" id="mrAppName" placeholder="MapReduce App Name"/>
+
+            <label>Jar File</label>
+            <input type="text" id="mrJar" placeholder="Packed Jar File Name"/>
+            
+            <label>Main Class</label>
+            <input type="text" id="mrMain" placeholder="Main Class Path"/>
+            <div class="parameter">
+              <label>Parameter</label>
+              <a href="#" onclick="addMRParameter();"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+              <div id="mrParameters"></div>
+            </div>
+            <br />
+            <div class="action_btns">
+              <div id="mrSave" class="one_half last"><a href="#" class="btn btn_red">Save</a></div>
+            </div>
+          </form>
+        </div>        
+      </section>
+    </div>  
+
+    <div id="tools">
+      <button id="autolayout" type="button" class="btn btn-primary">Autolayout</button>
+      <button id="addSpark" type="button" class="btn btn-primary">Add Spark</button>
+      <button id="addMR" type="button" class="btn btn-primary">Add MapReduce</button>
+      <button id="get" type="button" class="btn btn-primary">Get JSON</button>
+      <button id="clear" type="button" class="btn btn-primary">Clear</button>
+      <button id="run" type="button" class="btn btn-primary">Run</button>
+    </div>
+    <div id="loading" style="position:absolute; top:50%; left:50%; background-color:white; padding:10px; border-radius:5px;">
+      <img src="loading.gif"/>
+      <div id="loading-message">Loading elements...</div>
+    </div>
+    <div id="overlay"></div>
+    <script type="text/javascript">
+      Polymer.veiledElements = ["the-graph-editor"];
+      window.addEventListener('polymer-ready', function() {
+        "use strict";
+
+        // Remove loading message
+        document.body.removeChild( document.getElementById("loading") );
+
+        // The graph editor
+        var editor = document.getElementById('editor');
+
+        // Component library
+
+        editor.$.graph.library = library;
+
+
+        var tempGraph = {"properties":{},"inports":{"in":{"process":"24du","port":"in","metadata":{"x":576,"y":396,"width":72,"height":72}}},"outports":{"out":{"process":"24du","port":"out","metadata":{"x":864,"y":396,"width":72,"height":72}}},"groups":[],"processes":{"24du":{"component":"MapReduce","metadata":{"label":"MapReduce","jarName":"mapreduce-examples.jar","classPath":"pi","argument":["10","100"],"x":720,"y":396,"width":72,"height":72}}},"connections":[]};        // Load empty graph
+        var graph = {};
+        editor.graph = graph;
+
+        // Add node button
+        var addfile = function () {
+          var id = Math.round(Math.random()*100000).toString(36);
+          var component = 'File';
+          var metadata = {
+            label: component,
+            source: "",
+            x: Math.round(0.5 * $(window).width() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).width()),
+            y: Math.round(0.5 * $(window).height() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).height())
+          };
+          var newNode = editor.nofloGraph.addNode(id, component, metadata);
+          return newNode;
+        };
+        //document.getElementById("addfile").addEventListener("click", addfile);
+
+        var addSpark = function(){
+          var id = Math.round(Math.random()*100000).toString(36);
+          var component = 'Spark'
+          var metadata = {
+            label: component,
+            jarName: "",
+            classPath: "",
+            argument: [],
+            x: Math.round(0.5 * $(window).width() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).width()),
+            y: Math.round(0.5 * $(window).height() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).height())
+          };
+          var newNode = editor.nofloGraph.addNode(id,component,metadata);
+          return newNode;
+        }
+        document.getElementById("addSpark").addEventListener("click",addSpark);
+
+        var addMR = function(){
+          var id = Math.round(Math.random()*100000).toString(36);
+          var component = 'MapReduce'
+          var metadata = {
+            label: component,
+            jarName: "",
+            classPath: "",
+            argument: [],
+            x: Math.round(0.5 * $(window).width() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).width()),
+            y: Math.round(0.5 * $(window).height() + Math.sin(Math.PI * 2 * Math.random()) * 0.3 * $(window).height())
+          };
+          var newNode = editor.nofloGraph.addNode(id,component,metadata);
+          return newNode;
+        }
+        document.getElementById("addMR").addEventListener("click",addMR);
+
+        // Auto layout
+        document.getElementById("autolayout").addEventListener("click", function () {
+          editor.triggerAutolayout();
+        });
+
+        // Get graph button
+        document.getElementById("get").addEventListener("click", function () {
+          var graphJSON = JSON.stringify(editor.nofloGraph);
+          alert(graphJSON);
+          //you can use the var graphJSON to save the graph definition in a file/database
+        });
+
+        // Clear button
+        document.getElementById("clear").addEventListener("click", function () {
+          graph = {};
+          editor.graph = graph;
+        });
+
+        // Resize to fill window and also have explicit w/h attributes
+        var resize = function () {
+          editor.setAttribute("width", window.innerWidth);
+          editor.setAttribute("height", window.innerHeight);
+        };
+        window.addEventListener("resize", resize);
+
+        resize();
+      });
+      var parameter_list = [];
+      var parameter_id = 0;
+      function addSparkParameter(){
+        var id = parameter_id + "_spark";
+        loadSparkParameterForm(id);
+        parameter_id++;
+      };
+
+      function delSparkParameter(id){
+        parameter_list = jQuery.grep(parameter_list, function(value) {
+          return value != id;
+        });
+        $("."+id).remove();
+      };
+
+      function loadSparkParameterForm(id){
+        $("#sparkParameters").append('<div class="'+id+'"><input type="parameter" id="'+ id +'" placeholder="Parameter"/><a href="#" onclick=\'delSparkParameter("'+ id +'")\'><i class="fa fa-minus-square" aria-hidden="true"></i></a></div>');
+        parameter_list.push(id);
+      };
+
+      function resetSparkParameterForm(){
+        $("#sparkParameters").html("");
+      };
+
+      function addMRParameter(){
+        var id = parameter_id + "_mr";
+        loadMRParameterForm(id);
+        parameter_id++;
+      };
+
+      function delMRParameter(id){
+        parameter_list = jQuery.grep(parameter_list, function(value) {
+          return value != id;
+        });
+        $("."+id).remove();
+      };
+
+      function loadMRParameterForm(id){
+        $("#mrParameters").append('<div class="'+id+'"><input type="parameter" id="'+ id +'" placeholder="Parameter"/><a href="#" onclick=\'delSparkParameter("'+ id +'")\'><i class="fa fa-minus-square" aria-hidden="true"></i></a></div>');
+        parameter_list.push(id);
+      };
+
+      function resetMRParameterForm(){
+        $("#mrParameters").html("");
+      };
+
+      $(".modal_close").click(function(){
+        $("#modal").hide();
+        $("#overlay").hide();
+      });
+
+      $("#run").click(function(){
+        var graphJSON = JSON.stringify(editor.nofloGraph);
+        $.ajax({
+          url: "/Luna/workflowExecutor",
+          contentType: 'application/json',
+          type: "POST",
+          datatype: "json",
+          data: graphJSON,
+          success:function(data) { alert(data) },
+          error: function(xhr,status,error) {alert(xhr.responseText); }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Project Luna - Visualizer</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="Stylesheets/luna.css">
+<link rel="stylesheet" href="Stylesheets/main.css">
+<link rel="stylesheet" href="Stylesheets/perfect-scrollbar.min.css">
+<link href = "images/logo.png" rel="icon" type="image/png">
+</head>
+<body>
+	<div id="navbar-container"></div>
+	<div id="workspace">
+		<div id="left-chart-nav" class="ps-container ps-active-y">
+			<ul></ul>			
+		</div>
+		<div id="nav-mask" style="display: none;"></div>
+		<div id="nav-layer" class="ps-container">
+			<ul class="chart-list"></ul>
+		</div>
+		<div id="editor">
+		<!--  <iframe src="http://echarts.baidu.com/gallery/editor.html?c=effectScatter-map"></iframe>  -->
+			<iframe src="editor.html"></iframe>
+		</div>
+	</div>
+	<div id="footer-container"></div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script> 
+	$(function(){
+		$("#navbar-container").load("navbar.html");  
+		$("#footer-container").load("footer.html");
+	});
+</script>
+<script type="text/javascript" src="JS/echarts.min.js"></script>
+<script type="text/javascript" src="JS/macarons.js"></script>
+<script type="text/javascript" src="JS/validator.js"></script>
+<script type="text/javascript" src="JS/waypoint.js"></script>
+<script type="text/javascript" src="JS/lodash.js"></script>
+<script type="text/javascript" src="JS/perfect-scrollbar.min.js"></script>
+<script type="text/javascript">
+var GALLERY_PATH = '';
+console.log(GALLERY_PATH);
+var GALLERY_EDITOR_PATH = GALLERY_PATH + 'editor.html?c=';
+var GALLERY_VIEW_PATH = GALLERY_PATH + 'view.html?c=';
+var GALLERY_THUMB_PATH = 'images/thumb/';//localized thumbnails.
+</script>
+<script type="text/javascript" src="JS/config.js"></script>
+<script type="text/javascript" src="JS/examples-nav.js"></script>
+<script type="text/javascript">
+//document.getElementById('nav-examples').className = 'active';
+function loadDemo() {
+    var chartId = location.hash.slice(1);
+    $('#editor').html('<iframe src="' + GALLERY_EDITOR_PATH + chartId + '"></iframe>');
+}
+
+$(window).on('hashchange', function () {
+    loadDemo();
+});
+loadDemo();
+</script>
+</html>

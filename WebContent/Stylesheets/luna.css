@@ -1,0 +1,109 @@
+body {
+  	padding-top: 50px;
+  	background-color: #eee;
+  	height: 100vh;
+  	background-image: url("../images/bg2.jpg");
+  	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+@font-face {
+	font-family: 'Slim-Joe';
+	src:url('../Fonts/Slim-Joe.woff') format('woff');
+	src:url('../Fonts/Slim-Joe.eot') format('embedded-opentype'),
+		url('../Fonts/Slim-Joe.woff') format('woff'),
+		url('../Fonts/Slim-Joe.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+.separator-container {
+	text-align: center;
+	position: relative;
+}
+.separator-container .separator {
+	color: #fff;
+	margin: 0 auto 2em;
+	width: 22em;
+}
+.separator-container .separator.line-separator:before, .separator-container .separator.line-separator:after {
+	display: block;
+	width: 40%;
+	content: " ";
+	margin-top: 11px;
+	border: 1px solid #fff;
+}
+.separator-container .separator.line-separator:before {
+	float: left;
+}
+.separator-container .separator.line-separator:after {
+	float: right;
+}
+.content {
+	position: absolute;  	
+  	text-align: center;
+  	width: 100%;
+  	color: white;
+  	text-shadow: 0 0 15px grey;
+  	bottom: 25%;
+}
+.navbar-font{
+	font-family: Slim-Joe;
+}
+.brand{
+	font-family: Slim-Joe;
+}
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 20px;
+	background-color: #333;
+  	text-align:center;
+}
+.text-muted {
+	margin: 0px 0px;
+  	color: #9d9d9d;
+  	font-family: Slim-Joe;
+}
+.workspace {
+	width: 60%;
+	min-height: 90vh;
+	margin-left: 20%;
+	margin-right: 20%;
+    position: absolute;
+	background-color: #eee; 
+}
+.file-upload {
+	display: block;
+	margin: 0 auto;
+	width: 60%;
+	background-color: #eee; 
+}
+.btn-primary {
+	background-color: #3FA7DC;
+	border-color: #3FA7DC;
+}
+#editor {
+	position: absolute;
+	top: 50px;
+	left: 155px;
+	right: 0;
+	bottom: 20px;
+	overflow: hidden
+}
+
+#editor iframe {
+	width: 100%;
+	height: 100%;
+	border: none
+}
+.about {
+	position: absolute;  	
+  	text-align: center;
+  	width: 100%;
+  	color: white;
+  	text-shadow: 0 0 15px grey;
+  	top: 15%;
+}

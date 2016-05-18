@@ -1,0 +1,76 @@
+
+#overlay {
+    position: fixed;
+    z-index: 5;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    opacity: 0.5;
+    display: none;
+}
+
+.popupContainer{
+    font-family: "SourceCodePro", "Source Code Pro", Helvetica, Arial, sans-serif;
+    z-index: 6;
+	position:absolute;
+	width:330px;
+	height: auto;
+	left:45%;
+	top:80px;
+	background: #FFF;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn {padding:10px 20px; background: #F4F4F2;}
+.btn_red {background: #3FA7DC; color: #FFF;}
+
+.btn:hover {background: #3896c6;}
+.btn_red:hover {background: #3896c6;}
+
+a.btn {color:#666; text-align: center; text-decoration: none;}
+a.btn_red {color: #FFF;}
+
+.one_half {}
+.one_half.last {width:45%; margin: auto;}
+
+/* Popup Styles*/
+.popupHeader {font-size:16px; text-transform: uppercase;}
+.popupHeader {background:#F4F4F2; position:relative; padding:10px 20px; border-bottom:1px solid #DDD; font-weight:bold;}
+.popupHeader .modal_close {position: absolute; right: 0; top:0; padding:10px 15px; background:#F4F4F2; cursor: pointer; color:#aaa; font-size:16px;}
+.popupHeader .modal_close:hover {background: #E4E4E2;}
+
+.popupBody {padding:20px;}
+
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
+
+.action_btns {clear:both; overflow: hidden;}
+.action_btns a {display: block;}
+
+/* User Login Form */
+.sparkForm {display: none;}
+.sparkForm label {display: block; margin-bottom:5px;}
+.sparkForm input[type="text"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+
+
+.fileForm {display: none;}
+.fileForm label {display: block; margin-bottom:5px;}
+.fileForm input[type="text"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+
+
+.mrForm {display: none;}
+.mrForm label {display: block; margin-bottom:5px;}
+.mrForm input[type="text"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
+
+.parameter label {display: inline-block; margin-bottom:5px;}
+.parameter input {display: inline-block; width: 80%; padding: 10px; border:1px solid #DDD; color:#666; margin-bottom: 5px;}
+.parameter a:visited {color: #000;}
+.parameter a:active {color: #000;}
+.parameter .fa {display: inline-block; margin: 5px;}
+
+
+
