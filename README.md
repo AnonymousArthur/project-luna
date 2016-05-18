@@ -29,6 +29,7 @@ The platform is wirtten in Java, JavaScript and HTML, the pipeline workflow edit
 6. Make sure your Eclipse is using Tomcat Installation Path as it's Tomcat Server. Otherwise the project doesn't have acess to above directories.
 7. Make sure your Hadoop has already set up, ready to use and running in the background.
 8. Make sure your Spark has already set up and ready to use.
+
 ## Installation
 1. Import the project as 'Existing Maven Project' in your Eclipse.
 2. Right click on the project -> 'Run as' -> 'Maven Install'.
