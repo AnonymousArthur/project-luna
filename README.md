@@ -1,8 +1,8 @@
 # Project Luna
 
-Project Luna is a free big data platform which providing support for building pipeline of Apache Hadoop Map Reduce jobs and Apache Spark jobs. Project Luna also provide an intuitive, interactive and hightly customizable charts visulization tool for users to visulaize and review data. 
+Project Luna is a free big data platform which providing support for building pipeline of Apache Hadoop Map Reduce jobs and Apache Spark jobs. Project Luna also provide an intuitive, interactive and highly customizable charts visualization tool for users to visualize and review data. 
 
-The platform is wirtten in Java, JavaScript and HTML, the pipeline workflow editor is implemented based on [the-graph](https://github.com/the-grid/the-graph), and the visulization tool is implemented based on [echarts](https://github.com/ecomfe/echarts).
+The platform is written in Java, JavaScript and HTML, the pipeline workflow editor is implemented based on [the-graph](https://github.com/the-grid/the-graph), and the visualization tool is implemented based on [echarts](https://github.com/ecomfe/echarts).
 
 ## Features
 + Provide a GUI based pipeline workflow editor for users to build their pipeline.
