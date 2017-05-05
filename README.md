@@ -63,7 +63,7 @@ The platform is written in Java, JavaScript and HTML, the pipeline workflow edit
 + Convert and copy your data into the data area in the code editor so that you'll see visualized data on the right panel.
 + This [Spreadsheet Data Convert Tool](http://echarts.baidu.com/echarts2/doc/spreadsheet-en.html) made officially by Baidu Echarts might be useful for you.
 
-## Known Issues and Limiations
+## Known Issues and Limitations
 + Workflow front end doesn't have log display function.
 + Workflow front end doesn't have stop button for execution after submission.
 + 'Autolayout' button in workflow editor may turns the graph into some terrible graph.
