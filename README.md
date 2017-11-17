@@ -1,4 +1,4 @@
-# Project Luna
+# Project Luna - deprecated (will not update)
 
 Project Luna is a free big data platform which providing support for building pipeline of Apache Hadoop Map Reduce jobs and Apache Spark jobs. Project Luna also provide an intuitive, interactive and highly customizable charts visualization tool for users to visualize and review data. 
 
